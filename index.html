@@ -2,394 +2,371 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Автоимперия</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
 body{
-margin:0;
-background:#090a0d;
-color:#fff;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#0b0b0f;
+  color:white;
+  min-height:100vh;
 }
 
 .app{
-max-width:520px;
-margin:auto;
-padding:20px 16px 100px;
+  max-width:500px;
+  margin:auto;
+  padding:18px 14px 90px;
 }
 
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:25px 0;
-}
-
-.logo{
-font-size:30px;
-font-weight:800;
-}
-
-.level{
-background:#1d2028;
-padding:14px 20px;
-border-radius:18px;
-}
-
-.card{
-background:#17191f;
-border:1px solid #292d36;
-border-radius:28px;
-padding:25px;
-margin-bottom:22px;
-}
-
-.label{
-color:#8f949f;
-font-size:15px;
+h1{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:8px;
 }
 
 .balance{
-font-size:45px;
-font-weight:800;
-margin-top:8px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  color:#42ff8b;
+  margin-bottom:20px;
+}
+
+.level{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:20px;
 }
 
 .case{
-text-align:center;
-padding:35px 20px;
+  background:linear-gradient(145deg,#171720,#101015);
+  border:1px solid #292936;
+  border-radius:20px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
 }
 
-.gift{
-font-size:80px;
-transition:.4s;
+.case-title{
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:15px;
 }
 
-.gift.open{
-transform:scale(1.25) rotate(12deg);
-}
-
-h2{
-margin:15px 0 8px;
-font-size:28px;
-}
-
-.sub{
-color:#9297a3;
-font-size:17px;
-line-height:1.4;
+.case-icon{
+  font-size:75px;
+  margin:15px 0;
 }
 
 button{
-border:0;
-border-radius:20px;
-padding:18px;
-font-size:17px;
-font-weight:800;
-cursor:pointer;
+  border:none;
+  border-radius:13px;
+  padding:13px 18px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.openBtn{
-width:100%;
-background:#fff;
-color:#08090b;
-margin-top:25px;
+.open-btn{
+  width:100%;
+  background:#42ff8b;
+  color:#07140c;
+  margin-top:10px;
 }
 
-.openBtn:disabled{
-opacity:.45;
+.open-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
 }
 
-.result{
-display:none;
-text-align:center;
-animation:appear .5s ease;
+.section{
+  display:none;
+  margin-top:20px;
 }
 
-.result.show{
-display:block;
+.section.active{
+  display:block;
 }
 
-.carIcon{
-font-size:80px;
-margin:10px;
-}
-
-.carName{
-font-size:30px;
-font-weight:900;
-}
-
-.rarity{
-font-weight:900;
-font-size:18px;
-margin:10px;
-}
-
-.value{
-color:#aaa;
-font-size:16px;
-}
-
-.sell{
-background:#252932;
-color:#fff;
-margin-top:18px;
-width:100%;
-}
-
-.rarity-normal{
-color:#c7cbd1;
-}
-
-.rarity-uncommon{
-color:#42d66b;
-}
-
-.rarity-rare{
-color:#4b9cff;
-}
-
-.rarity-epic{
-color:#b56cff;
-}
-
-.rarity-legendary{
-color:#ffd447;
-}
-
-.rarity-mythic{
-color:#ff4d5f;
-}
-
-.result.normal{
-border:1px solid #555b65;
-box-shadow:0 0 25px rgba(180,180,180,.15);
-border-radius:24px;
-padding:15px;
-}
-
-.result.uncommon{
-border:1px solid #42d66b;
-box-shadow:0 0 30px rgba(66,214,107,.22);
-border-radius:24px;
-padding:15px;
-}
-
-.result.rare{
-border:1px solid #4b9cff;
-box-shadow:0 0 35px rgba(75,156,255,.28);
-border-radius:24px;
-padding:15px;
-}
-
-.result.epic{
-border:1px solid #b56cff;
-box-shadow:0 0 40px rgba(181,108,255,.32);
-border-radius:24px;
-padding:15px;
-}
-
-.result.legendary{
-border:1px solid #ffd447;
-box-shadow:0 0 45px rgba(255,212,71,.35);
-border-radius:24px;
-padding:15px;
-}
-
-.result.mythic{
-border:1px solid #ff4d5f;
-box-shadow:0 0 50px rgba(255,77,95,.4);
-border-radius:24px;
-padding:15px;
-}
-
-@keyframes appear{
-from{
-opacity:0;
-transform:translateY(20px) scale(.85)
-}
-to{
-opacity:1;
-transform:none
-}
-}
-
-.sectionTitle{
-font-size:27px;
-font-weight:800;
-margin:28px 5px 15px;
-}
-
-.garage{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+.card{
+  background:#15151d;
+  border:1px solid #292936;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
 }
 
 .car{
-background:#17191f;
-border:1px solid #292d36;
-border-radius:20px;
-padding:18px 10px;
-text-align:center;
+  border:2px solid #333;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:12px;
+  background:#121219;
 }
 
+.car-name{
+  font-size:19px;
+  font-weight:bold;
+}
+
+.car-info{
+  color:#aaa;
+  margin-top:5px;
+}
+
+.sell-btn{
+  margin-top:10px;
+  background:#ff4545;
+  color:white;
+}
+
+.market-item{
+  background:#15151d;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+  border:2px solid #292936;
+}
+
+.market-name{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.market-price{
+  color:#42ff8b;
+  font-weight:bold;
+  margin:7px 0;
+}
+
+.buy-btn{
+  background:#42ff8b;
+  color:#07140c;
+}
+
+.bottom{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:0;
+  width:100%;
+  max-width:500px;
+  background:#111116;
+  border-top:1px solid #292936;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 5px;
+  z-index:20;
+}
+
+.nav-btn{
+  background:transparent;
+  color:#888;
+  font-size:12px;
+  padding:7px;
+}
+
+.nav-btn.active{
+  color:#42ff8b;
+}
+
+/* РЕДКОСТИ */
+
+.rarity-normal{
+  color:#aaa;
+}
+
+.rarity-uncommon{
+  color:#42ff8b;
+}
+
+.rarity-rare{
+  color:#4da6ff;
+}
+
+.rarity-epic{
+  color:#b85cff;
+}
+
+.rarity-legendary{
+  color:#ffd84d;
+}
+
+.rarity-mythic{
+  color:#ff4545;
+}
+
+/* РАМКИ */
+
 .car.normal{
-border-color:#555b65;
+  border-color:#777;
 }
 
 .car.uncommon{
-border-color:#42d66b;
+  border-color:#42ff8b;
 }
 
 .car.rare{
-border-color:#4b9cff;
+  border-color:#4da6ff;
 }
 
 .car.epic{
-border-color:#b56cff;
+  border-color:#b85cff;
 }
 
 .car.legendary{
-border-color:#ffd447;
+  border-color:#ffd84d;
 }
 
 .car.mythic{
-border-color:#ff4d5f;
+  border-color:#ff4545;
 }
 
-.car .icon{
-font-size:42px;
+/* РЕЗУЛЬТАТ */
+
+.result{
+  margin-top:20px;
+  padding:20px;
+  border-radius:18px;
+  background:#101017;
+  border:2px solid #333;
+  text-align:center;
+  display:none;
 }
 
-.car strong{
-display:block;
-margin-top:7px;
+.result.show{
+  display:block;
 }
 
-.car small{
-display:block;
-color:#999;
-margin-top:4px;
+.result-icon{
+  font-size:70px;
+  margin:10px;
 }
 
-.car button{
-padding:10px;
-font-size:13px;
-margin-top:10px;
-width:100%;
+.result-name{
+  font-size:24px;
+  font-weight:bold;
 }
 
-.empty{
-background:#15171c;
-border-radius:22px;
-padding:30px;
-text-align:center;
-color:#858a95;
+.result-rarity{
+  font-size:18px;
+  margin-top:6px;
 }
 
-.stats{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+.result.normal{
+  border-color:#777;
 }
+
+.result.uncommon{
+  border-color:#42ff8b;
+  box-shadow:0 0 20px rgba(66,255,139,.2);
+}
+
+.result.rare{
+  border-color:#4da6ff;
+  box-shadow:0 0 20px rgba(77,166,255,.25);
+}
+
+.result.epic{
+  border-color:#b85cff;
+  box-shadow:0 0 25px rgba(184,92,255,.3);
+}
+
+.result.legendary{
+  border-color:#ffd84d;
+  box-shadow:0 0 30px rgba(255,216,77,.3);
+}
+
+.result.mythic{
+  border-color:#ff4545;
+  box-shadow:0 0 35px rgba(255,69,69,.35);
+}
+
+/* АНИМАЦИЯ */
+
+.roulette{
+  display:none;
+  margin-top:20px;
+  background:#101017;
+  border:2px solid #292936;
+  border-radius:18px;
+  padding:20px 10px;
+  overflow:hidden;
+  position:relative;
+}
+
+.roulette.show{
+  display:block;
+}
+
+.roulette-title{
+  text-align:center;
+  color:#aaa;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.roll-icon{
+  text-align:center;
+  font-size:72px;
+  height:90px;
+  line-height:90px;
+}
+
+.roll-name{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  min-height:28px;
+}
+
+.roll-rarity{
+  text-align:center;
+  font-size:16px;
+  margin-top:5px;
+}
+
+.pointer{
+  position:absolute;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-top:12px solid #42ff8b;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
+}
+
+.winner-animation{
+  animation:pulse .45s ease;
+}
+
+/* ПРОФИЛЬ */
 
 .stat{
-background:#17191f;
-padding:20px;
-border-radius:20px;
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #292936;
 }
 
-.stat b{
-font-size:24px;
-display:block;
+.stat:last-child{
+  border-bottom:none;
 }
-
-.nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#090a0d;
-border-top:1px solid #292d36;
-display:flex;
-justify-content:center;
-z-index:5;
-}
-
-.navInner{
-width:520px;
-display:grid;
-grid-template-columns:repeat(4,1fr);
-}
-
-.nav button{
-background:none;
-color:#8e939e;
-padding:12px 3px 15px;
-font-size:13px;
-}
-
-.nav button.active{
-color:#fff;
-}
-
-.nav span{
-display:block;
-font-size:25px;
-margin-bottom:4px;
-}
-
-.page{
-display:none;
-}
-
-.page.active{
-display:block;
-}
-
-.notice{
-background:#20232b;
-padding:15px;
-border-radius:16px;
-color:#aeb2bb;
-margin-bottom:18px;
-}
-
-.market-car{
-background:#17191f;
-border:1px solid #292d36;
-border-radius:20px;
-padding:20px;
-margin-bottom:12px;
-}
-
-.market-car b{
-display:block;
-font-size:20px;
-margin-bottom:7px;
-}
-
-.market-car div{
-color:#999;
-margin-bottom:14px;
-}
-
-.market-car button{
-width:100%;
-background:#fff;
-color:#08090b;
-padding:13px;
-}
-
-.market-rarity{
-font-weight:800;
-}
-
 </style>
 </head>
 
@@ -397,236 +374,136 @@ font-weight:800;
 
 <div class="app">
 
+<h1>🚘 Автоимперия</h1>
+
+<div class="level">
+  Уровень <span id="level">1</span>
+</div>
+
+<div class="balance">
+  <span id="balance">10 000</span> ₽
+</div>
+
 <!-- ГЛАВНАЯ -->
 
-<div id="home" class="page active">
+<div id="home" class="section active">
 
-<div class="header">
-<div class="logo">🚘 Автоимперия</div>
-<div class="level" id="level">Уровень 1</div>
+<div class="case">
+
+<div class="case-title">
+  🚘 Автомобильный кейс
 </div>
 
-<div class="card">
-
-<div class="label">ВАШ БАЛАНС</div>
-
-<div class="balance" id="balance">
-10 000 ₽
+<div class="case-icon">
+  🎁
 </div>
 
+<div style="color:#aaa;margin-bottom:10px">
+  Испытай удачу и получи автомобиль!
 </div>
 
-
-<div class="card case">
-
-<div class="gift" id="gift">🎁</div>
-
-<h2>Автомобильный кейс</h2>
-
-<div class="sub">
-Откройте кейс и получите случайный автомобиль
-</div>
-
-<button class="openBtn" id="openBtn" onclick="openCase()">
-ОТКРЫТЬ ЗА 500 ₽
-</button>
-
-
-<div class="result" id="result">
-
-<div class="carIcon" id="resultIcon">🚗</div>
-
-<div class="carName" id="resultName"></div>
-
-<div class="rarity" id="resultRarity"></div>
-
-<div class="value" id="resultValue"></div>
-
-<button class="sell" onclick="sellLast()">
-Продать автомобиль
+<button id="openButton" class="open-btn" onclick="openCase()">
+  Открыть за 500 ₽
 </button>
 
 </div>
 
+<div id="roulette" class="roulette">
+
+<div class="pointer"></div>
+
+<div class="roulette-title">
+  Открытие кейса...
 </div>
 
-
-<div class="sectionTitle">
-🚗 Мой гараж
+<div id="rollIcon" class="roll-icon">
+  🚗
 </div>
 
-<div id="garage" class="garage"></div>
+<div id="rollName" class="roll-name">
+  LADA Vesta
+</div>
+
+<div id="rollRarity" class="roll-rarity">
+  Обычная
+</div>
 
 </div>
 
+<div id="result" class="result">
+
+<div id="resultIcon" class="result-icon">
+  🚗
+</div>
+
+<div id="resultName" class="result-name">
+  LADA Vesta
+</div>
+
+<div id="resultRarity" class="result-rarity">
+  Обычная
+</div>
+
+<div style="margin-top:8px;color:#42ff8b">
+  Автомобиль добавлен в гараж!
+</div>
+
+</div>
+
+</div>
 
 <!-- ГАРАЖ -->
 
-<div id="garagePage" class="page">
+<div id="garage" class="section">
 
-<div class="header">
-<div class="logo">🚗 Гараж</div>
-</div>
+<h2 style="margin-bottom:15px">
+  🚗 Гараж
+</h2>
 
-<div class="notice">
-Здесь хранятся все ваши автомобили.
-</div>
-
-<div id="garageFull" class="garage"></div>
+<div id="garageList"></div>
 
 </div>
-
 
 <!-- РЫНОК -->
 
-<div id="market" class="page">
+<div id="market" class="section">
 
-<div class="header">
-<div class="logo">🏪 Рынок</div>
-</div>
+<h2 style="margin-bottom:15px">
+  🏪 Рынок
+</h2>
 
-<div class="card">
-
-<h2>Автомобильный рынок</h2>
-
-<div class="sub">
-Покупайте автомобили напрямую и собирайте свою коллекцию.
-</div>
+<div id="marketList"></div>
 
 </div>
-
-
-<div class="market-car">
-
-<b>🚗 BMW M6</b>
-
-<div class="market-rarity rarity-rare">
-Редкая • 15 000 ₽
-</div>
-
-<button onclick="buyMarketCar(0)">
-Купить
-</button>
-
-</div>
-
-
-<div class="market-car">
-
-<b>🚘 BMW F10</b>
-
-<div class="market-rarity rarity-uncommon">
-Необычная • 25 000 ₽
-</div>
-
-<button onclick="buyMarketCar(1)">
-Купить
-</button>
-
-</div>
-
-
-<div class="market-car">
-
-<b>🏎️ BMW M5 F90</b>
-
-<div class="market-rarity rarity-epic">
-Эпическая • 75 000 ₽
-</div>
-
-<button onclick="buyMarketCar(2)">
-Купить
-</button>
-
-</div>
-
-
-<div class="market-car">
-
-<b>🐂 Lamborghini Urus</b>
-
-<div class="market-rarity rarity-legendary">
-Легендарная • 250 000 ₽
-</div>
-
-<button onclick="buyMarketCar(3)">
-Купить
-</button>
-
-</div>
-
-
-<div class="market-car">
-
-<b>🚙 Haval</b>
-
-<div class="market-rarity rarity-normal">
-Обычная • 12 000 ₽
-</div>
-
-<button onclick="buyMarketCar(4)">
-Купить
-</button>
-
-</div>
-
-
-<div class="market-car">
-
-<b>🏁 Mercedes GT</b>
-
-<div class="market-rarity rarity-legendary">
-Легендарная • 180 000 ₽
-</div>
-
-<button onclick="buyMarketCar(5)">
-Купить
-</button>
-
-</div>
-
-</div>
-
 
 <!-- ПРОФИЛЬ -->
 
-<div id="profile" class="page">
+<div id="profile" class="section">
 
-<div class="header">
-<div class="logo">👤 Профиль</div>
-</div>
+<h2 style="margin-bottom:15px">
+  👤 Профиль
+</h2>
 
 <div class="card">
 
-<h2>Игрок Автоимперии</h2>
-
-<div class="sub">
-Ваша статистика
-</div>
-
-</div>
-
-
-<div class="stats">
-
 <div class="stat">
-<b id="carsCount">0</b>
-Автомобилей
+  <span>Уровень</span>
+  <b id="profileLevel">1</b>
 </div>
 
 <div class="stat">
-<b id="spent">0 ₽</b>
-Потрачено
+  <span>Потрачено</span>
+  <b id="spent">0 ₽</b>
 </div>
 
 <div class="stat">
-<b id="sold">0 ₽</b>
-Продано
+  <span>Продано машин</span>
+  <b id="sold">0</b>
 </div>
 
 <div class="stat">
-<b id="best">—</b>
-Лучшая машина
+  <span>Машин в гараже</span>
+  <b id="garageCount">0</b>
 </div>
 
 </div>
@@ -634,42 +511,34 @@ font-weight:800;
 </div>
 
 </div>
-
 
 <!-- НИЖНЕЕ МЕНЮ -->
 
-<div class="nav">
+<div class="bottom">
 
-<div class="navInner">
-
-<button class="active" onclick="showPage('home',this)">
-<span>🏠</span>
-Главная
+<button class="nav-btn active" onclick="showSection('home',this)">
+  🏠<br>Главная
 </button>
 
-<button onclick="showPage('garagePage',this)">
-<span>🚗</span>
-Гараж
+<button class="nav-btn" onclick="showSection('garage',this)">
+  🚗<br>Гараж
 </button>
 
-<button onclick="showPage('market',this)">
-<span>🏪</span>
-Рынок
+<button class="nav-btn" onclick="showSection('market',this)">
+  🏪<br>Рынок
 </button>
 
-<button onclick="showPage('profile',this)">
-<span>👤</span>
-Профиль
+<button class="nav-btn" onclick="showSection('profile',this)">
+  👤<br>Профиль
 </button>
 
 </div>
-
-</div>
-
 
 <script>
 
-/* АВТОМОБИЛИ КЕЙСА */
+/* =========================
+   МАШИНЫ ИЗ КЕЙСА
+========================= */
 
 const cars=[
 
@@ -730,7 +599,9 @@ value:500000
 ];
 
 
-/* АВТОМОБИЛИ РЫНКА */
+/* =========================
+   МАШИНЫ НА РЫНКЕ
+========================= */
 
 const marketCars=[
 
@@ -785,10 +656,12 @@ value:180000
 ];
 
 
-/* ЗАГРУЗКА ДАННЫХ */
+/* =========================
+   ДАННЫЕ ИГРЫ
+========================= */
 
 let data=JSON.parse(
-localStorage.getItem("autoEmpire")
+  localStorage.getItem("autoEmpire")
 )||{
 
 balance:10000,
@@ -799,91 +672,92 @@ sold:0
 };
 
 
-let lastCar=null;
-
-
-/* СОХРАНЕНИЕ */
+/* =========================
+   СОХРАНЕНИЕ
+========================= */
 
 function save(){
 
 localStorage.setItem(
-"autoEmpire",
-JSON.stringify(data)
+  "autoEmpire",
+  JSON.stringify(data)
 );
 
 }
 
 
-/* ФОРМАТ ДЕНЕГ */
+/* =========================
+   ФОРМАТ ЧИСЕЛ
+========================= */
 
-function money(n){
+function money(value){
 
-return n.toLocaleString("ru-RU")+" ₽";
+return Math.floor(value)
+.toLocaleString("ru-RU");
 
 }
 
 
-/* ОБНОВЛЕНИЕ */
+/* =========================
+   УРОВЕНЬ
+========================= */
+
+function getLevel(){
+
+return Math.max(
+  1,
+  Math.floor(data.spent/10000)+1
+);
+
+}
+
+
+/* =========================
+   ОБНОВЛЕНИЕ
+========================= */
 
 function update(){
 
 document.getElementById("balance").textContent=
 money(data.balance);
 
-
 document.getElementById("level").textContent=
-"Уровень "+
-(1+Math.floor(data.garage.length/5));
+getLevel();
 
-
-document.getElementById("carsCount").textContent=
-data.garage.length;
-
+document.getElementById("profileLevel").textContent=
+getLevel();
 
 document.getElementById("spent").textContent=
-money(data.spent);
-
+money(data.spent)+" ₽";
 
 document.getElementById("sold").textContent=
-money(data.sold);
+data.sold;
 
-
-if(data.garage.length){
-
-const best=data.garage.reduce(
-(a,b)=>a.value>b.value?a:b
-);
-
-document.getElementById("best").textContent=
-best.name;
-
-}else{
-
-document.getElementById("best").textContent="—";
-
-}
-
+document.getElementById("garageCount").textContent=
+data.garage.length;
 
 renderGarage();
+renderMarket();
 
 save();
 
 }
 
 
-/* ВЫБОР МАШИНЫ */
+/* =========================
+   ВЫБОР МАШИНЫ
+========================= */
 
-function chooseCar(){
+function randomCar(){
 
-let roll=Math.random()*100;
-
-let total=0;
+let random=Math.random()*100;
+let current=0;
 
 for(const car of cars){
 
-total+=car.chance;
+current+=car.chance;
 
-if(roll<=total){
+if(random<=current){
 
 return car;
 
@@ -896,9 +770,138 @@ return cars[0];
 }
 
 
-/* ОТКРЫТЬ КЕЙС */
+/* =========================
+   ЗВУКИ
+========================= */
+
+let audioContext=null;
+
+function getAudio(){
+
+if(!audioContext){
+
+audioContext=
+new (window.AudioContext||
+window.webkitAudioContext)();
+
+}
+
+if(audioContext.state==="suspended"){
+
+audioContext.resume();
+
+}
+
+return audioContext;
+
+}
+
+
+/* звук одного щелчка */
+
+function tickSound(){
+
+const ctx=getAudio();
+
+const oscillator=
+ctx.createOscillator();
+
+const gain=
+ctx.createGain();
+
+oscillator.type="square";
+
+oscillator.frequency.value=
+420+Math.random()*160;
+
+gain.gain.setValueAtTime(
+0.035,
+ctx.currentTime
+);
+
+gain.gain.exponentialRampToValueAtTime(
+0.001,
+ctx.currentTime+0.06
+);
+
+oscillator.connect(gain);
+gain.connect(ctx.destination);
+
+oscillator.start();
+
+oscillator.stop(
+ctx.currentTime+0.06
+);
+
+}
+
+
+/* звук выигрыша */
+
+function winSound(){
+
+const ctx=getAudio();
+
+const notes=[
+523.25,
+659.25,
+783.99,
+1046.5
+];
+
+notes.forEach((freq,i)=>{
+
+const oscillator=
+ctx.createOscillator();
+
+const gain=
+ctx.createGain();
+
+oscillator.type="sine";
+
+oscillator.frequency.value=freq;
+
+const start=
+ctx.currentTime+i*0.11;
+
+gain.gain.setValueAtTime(
+0.001,
+start
+);
+
+gain.gain.exponentialRampToValueAtTime(
+0.18,
+start+0.025
+);
+
+gain.gain.exponentialRampToValueAtTime(
+0.001,
+start+0.28
+);
+
+oscillator.connect(gain);
+gain.connect(ctx.destination);
+
+oscillator.start(start);
+
+oscillator.stop(start+0.3);
+
+});
+
+}
+
+
+/* =========================
+   ОТКРЫТИЕ КЕЙСА
+========================= */
+
+let opening=false;
 
 function openCase(){
+
+if(opening){
+return;
+}
 
 if(data.balance<500){
 
@@ -908,169 +911,412 @@ return;
 
 }
 
+opening=true;
+
+const button=
+document.getElementById("openButton");
+
+button.disabled=true;
+
+const roulette=
+document.getElementById("roulette");
+
+const result=
+document.getElementById("result");
+
+result.classList.remove("show");
+
+roulette.classList.add("show");
+
+
+/* списываем 500 только один раз */
 
 data.balance-=500;
 
 data.spent+=500;
 
-
-const btn=
-document.getElementById("openBtn");
-
-const gift=
-document.getElementById("gift");
-
-const result=
-document.getElementById("result");
+update();
 
 
-btn.disabled=true;
+/* заранее выбираем победителя */
 
-result.className="result";
+const winner=randomCar();
 
-gift.classList.add("open");
 
+/* элементы */
+
+const icon=
+document.getElementById("rollIcon");
+
+const name=
+document.getElementById("rollName");
+
+const rarity=
+document.getElementById("rollRarity");
+
+
+/* запуск */
+
+let delay=70;
+
+let elapsed=0;
+
+let cycles=0;
+
+const totalTime=2600;
+
+function roll(){
+
+if(elapsed>=totalTime){
+
+finishCase();
+
+return;
+
+}
+
+const temp=
+cars[Math.floor(
+Math.random()*cars.length
+)];
+
+icon.textContent=temp.icon;
+
+name.textContent=temp.name;
+
+rarity.textContent=temp.rarity;
+
+rarity.className=
+"roll-rarity rarity-"+temp.rarityClass;
+
+tickSound();
+
+cycles++;
+
+elapsed+=delay;
+
+
+/* постепенно замедляемся */
+
+if(elapsed<1200){
+
+delay=70;
+
+}else if(elapsed<1800){
+
+delay=110;
+
+}else if(elapsed<2200){
+
+delay=170;
+
+}else{
+
+delay=240;
+
+}
+
+setTimeout(roll,delay);
+
+}
+
+roll();
+
+
+/* =========================
+   ФИНАЛ
+========================= */
+
+function finishCase(){
+
+icon.textContent=
+winner.icon;
+
+name.textContent=
+winner.name;
+
+rarity.textContent=
+winner.rarity;
+
+rarity.className=
+"roll-rarity rarity-"+winner.rarityClass;
+
+
+/* победный звук */
+
+winSound();
+
+
+/* добавляем машину */
+
+data.garage.push({
+
+name:winner.name,
+
+icon:winner.icon,
+
+rarity:winner.rarity,
+
+rarityClass:winner.rarityClass,
+
+value:winner.value
+
+});
+
+update();
+
+
+/* небольшая пауза перед показом результата */
 
 setTimeout(()=>{
 
-const car=chooseCar();
+roulette.classList.remove("show");
 
-lastCar=car;
+const resultIcon=
+document.getElementById("resultIcon");
 
-data.garage.push(car);
+const resultName=
+document.getElementById("resultName");
 
-
-document.getElementById(
-"resultIcon"
-).textContent=car.icon;
-
-
-document.getElementById(
-"resultName"
-).textContent=car.name;
-
-
-const rarity=
+const resultRarity=
 document.getElementById("resultRarity");
 
-rarity.textContent=car.rarity;
-
-rarity.className=
-"rarity rarity-"+car.rarityClass;
-
-
-document.getElementById(
-"resultValue"
-).textContent=
-"Стоимость: "+money(car.value);
-
-
 result.className=
-"result show "+car.rarityClass;
+"result show "+winner.rarityClass;
 
+resultIcon.textContent=
+winner.icon;
 
-gift.classList.remove("open");
+resultName.textContent=
+winner.name;
 
-btn.disabled=false;
+resultRarity.textContent=
+winner.rarity;
 
-update();
+resultRarity.className=
+"result-rarity rarity-"+winner.rarityClass;
 
-},1200);
+result.classList.add("winner-animation");
+
+setTimeout(()=>{
+
+result.classList.remove("winner-animation");
+
+},500);
+
+button.disabled=false;
+
+opening=false;
+
+},500);
+
+}
 
 }
 
 
-/* ПРОДАТЬ ПОСЛЕДНЮЮ */
+/* =========================
+   ГАРАЖ
+========================= */
 
-function sellLast(){
+function renderGarage(){
 
-if(!lastCar)
+const list=
+document.getElementById("garageList");
+
+if(data.garage.length===0){
+
+list.innerHTML=`
+<div class="card" style="text-align:center;color:#888">
+  Гараж пуст
+</div>
+`;
+
 return;
 
+}
 
-data.balance+=lastCar.value;
+list.innerHTML="";
 
-data.sold+=lastCar.value;
+data.garage.forEach((car,index)=>{
 
+const div=
+document.createElement("div");
 
-const index=
-data.garage.lastIndexOf(lastCar);
+div.className=
+"car "+(car.rarityClass||"normal");
 
+div.innerHTML=`
 
-if(index>-1){
+<div style="font-size:50px">
+  ${car.icon}
+</div>
 
-data.garage.splice(index,1);
+<div class="car-name">
+  ${car.name}
+</div>
+
+<div class="car-info rarity-${car.rarityClass||"normal"}">
+  ${car.rarity}
+</div>
+
+<div class="car-info">
+  Стоимость: ${money(car.value)} ₽
+</div>
+
+<button
+class="sell-btn"
+onclick="sellCar(${index})">
+  Продать за ${money(car.value)} ₽
+</button>
+
+`;
+
+list.appendChild(div);
+
+});
 
 }
 
 
-lastCar=null;
-
-
-document.getElementById(
-"result"
-).className="result";
-
-
-update();
-
-}
-
-
-/* ПРОДАТЬ ИЗ ГАРАЖА */
+/* =========================
+   ПРОДАЖА МАШИНЫ
+========================= */
 
 function sellCar(index){
 
-const car=
-data.garage[index];
+const car=data.garage[index];
 
+if(!car){
+return;
+}
 
 data.balance+=car.value;
 
-data.sold+=car.value;
-
+data.sold++;
 
 data.garage.splice(index,1);
-
 
 update();
 
 }
 
 
-/* КУПИТЬ НА РЫНКЕ */
+/* =========================
+   РЫНОК
+========================= */
+
+function renderMarket(){
+
+const list=
+document.getElementById("marketList");
+
+list.innerHTML="";
+
+marketCars.forEach((car,index)=>{
+
+const div=
+document.createElement("div");
+
+div.className="market-item";
+
+div.style.borderColor=
+getRarityColor(car.rarityClass);
+
+div.innerHTML=`
+
+<div style="font-size:50px">
+  ${car.icon}
+</div>
+
+<div class="market-name">
+  ${car.name}
+</div>
+
+<div class="market-rarity rarity-${car.rarityClass}">
+  ${car.rarity}
+</div>
+
+<div class="market-price">
+  ${money(car.value)} ₽
+</div>
+
+<button
+class="buy-btn"
+onclick="buyMarketCar(${index})">
+
+Купить
+
+</button>
+
+`;
+
+list.appendChild(div);
+
+});
+
+}
+
+
+/* =========================
+   ЦВЕТ РЕДКОСТИ
+========================= */
+
+function getRarityColor(type){
+
+if(type==="normal"){
+return"#777";
+}
+
+if(type==="uncommon"){
+return"#42ff8b";
+}
+
+if(type==="rare"){
+return"#4da6ff";
+}
+
+if(type==="epic"){
+return"#b85cff";
+}
+
+if(type==="legendary"){
+return"#ffd84d";
+}
+
+if(type==="mythic"){
+return"#ff4545";
+}
+
+return"#292936";
+
+}
+
+
+/* =========================
+   ПОКУПКА НА РЫНКЕ
+========================= */
 
 function buyMarketCar(index){
 
 const car=
 marketCars[index];
 
-
 if(!car){
-
-alert("Ошибка автомобиля!");
-
 return;
-
 }
-
 
 if(data.balance<car.value){
 
-alert(
-"Недостаточно денег! Нужно "+
-money(car.value)
-);
+alert("Недостаточно денег!");
 
 return;
 
 }
-
 
 data.balance-=car.value;
 
 data.spent+=car.value;
-
 
 data.garage.push({
 
@@ -1086,119 +1332,43 @@ value:car.value
 
 });
 
-
 update();
-
 
 alert(
 "🚗 "+car.name+
-" куплен за "+
-money(car.value)+"!"
+" куплен и добавлен в гараж!"
 );
 
 }
 
 
-/* ГАРАЖ */
+/* =========================
+   ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
+========================= */
 
-function renderGarage(){
+function showSection(section,button){
 
-const containers=[
-
-document.getElementById("garage"),
-
-document.getElementById("garageFull")
-
-];
-
-
-containers.forEach(container=>{
-
-if(!container)
-return;
-
-
-if(!data.garage.length){
-
-container.innerHTML=
-'<div class="empty" style="grid-column:1/-1">'+
-'Пока в гараже пусто.<br>'+
-'Откройте свой первый кейс!'+
-'</div>';
-
-return;
-
-}
-
-
-container.innerHTML=
-data.garage.map((car,i)=>`
-
-<div class="car ${car.rarityClass||"normal"}">
-
-<div class="icon">
-${car.icon}
-</div>
-
-<strong>
-${car.name}
-</strong>
-
-<small class="rarity-${car.rarityClass||"normal"}">
-${car.rarity}
-</small>
-
-<small>
-${money(car.value)}
-</small>
-
-<button onclick="sellCar(${i})">
-Продать
-</button>
-
-</div>
-
-`).join("");
-
+document.querySelectorAll(".section")
+.forEach(el=>{
+el.classList.remove("active");
 });
 
-}
-
-
-/* НАВИГАЦИЯ */
-
-function showPage(id,button){
-
-document
-.querySelectorAll(".page")
-.forEach(p=>
-p.classList.remove("active")
-);
-
-
-document
-.getElementById(id)
+document.getElementById(section)
 .classList.add("active");
 
-
-document
-.querySelectorAll(".nav button")
-.forEach(b=>
-b.classList.remove("active")
-);
-
+document.querySelectorAll(".nav-btn")
+.forEach(el=>{
+el.classList.remove("active");
+});
 
 button.classList.add("active");
 
-
-update();
-
-window.scrollTo(0,0);
-
 }
 
 
-/* ЗАПУСК */
+/* =========================
+   ЗАПУСК
+========================= */
 
 update();
 
