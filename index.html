@@ -241,8 +241,13 @@ margin-bottom:18px;
 
 <div class="card">
 <h2>Автомобильный рынок</h2>
-<div class="sub">
-Скоро здесь можно будет покупать и продавать автомобили другим игрокам.
+<div class="sub"> 
+<div class="market-car">
+  <b>🚗 LADA Vesta</b> 
+  <div>Обычная • 800 ₽</div>
+<button onclick="buyMarketCar(0)">Купить</button>
+
+</div>
 </div>
 </div>
 
@@ -449,7 +454,21 @@ data.garage.splice(index,1);
 
 update();
 }
+function buyMarketCar(index){
+  const car=cars[index];
 
+  if(data.balance<car.value){
+    alert("Недостаточно денег!");
+    return;
+  }
+
+  data.balance-=car.value;
+  data.spent+=car.value;
+  data.garage.push(car);
+
+  update();
+  alert("🚗 Автомобиль куплен!");
+}
 function renderGarage(){
 
 const containers=[
