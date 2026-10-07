@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Автоимперия</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #090a0d;
+    color: white;
+    min-height: 100vh;
+}
+
+.app {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px 16px 90px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.level {
+    background: #1b1d23;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+.balance {
+    background: linear-gradient(145deg, #181a20, #101115);
+    border: 1px solid #292c34;
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 18px;
+}
+
+.balance-title {
+    color: #8d929d;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.money {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.case {
+    background: linear-gradient(145deg, #20242c, #121419);
+    border-radius: 24px;
+    padding: 25px 20px;
+    text-align: center;
+    border: 1px solid #30343d;
+}
+
+.case-icon {
+    font-size: 70px;
+    margin: 8px 0 15px;
+}
+
+.case h2 {
+    font-size: 21px;
+    margin-bottom: 7px;
+}
+
+.case p {
+    color: #9297a2;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.open-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    padding: 16px;
+    background: white;
+    color: #090a0d;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.open-btn:active {
+    transform: scale(.98);
+}
+
+.result {
+    display: none;
+    margin-top: 18px;
+    background: #17191f;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #343841;
+}
+
+.car {
+    font-size: 52px;
+    margin-bottom: 10px;
+}
+
+.car-name {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.rarity {
+    margin-top: 7px;
+    color: #b5bac4;
+}
+
+.car-price {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.garage {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.garage-card {
+    background: #15171c;
+    border: 1px solid #292c34;
+    border-radius: 18px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.garage-icon {
+    font-size: 35px;
+}
+
+.garage-info {
+    flex: 1;
+}
+
+.garage-name {
+    font-weight: 700;
+}
+
+.garage-price {
+    color: #8f949f;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.empty {
+    color: #777d88;
+    background: #15171c;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+}
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(12,13,16,.95);
+    border-top: 1px solid #272a31;
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    padding: 13px 10px;
+}
+
+.nav-item {
+    color: #8c919b;
+    text-align: center;
+    font-size: 12px;
+}
+
+.nav-item span {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 3px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <div class="logo">🚘 Автоимперия</div>
+        <div class="level">Уровень 1</div>
+    </div>
+
+    <div class="balance">
+        <div class="balance-title">ВАШ БАЛАНС</div>
+        <div class="money" id="money">10 000 ₽</div>
+    </div>
+
+    <div class="case">
+
+        <div class="case-icon">🎁</div>
+
+        <h2>Автомобильный кейс</h2>
+
+        <p>
+            Попробуйте удачу и получите случайный автомобиль
+        </p>
+
+        <button class="open-btn" onclick="openCase()">
+            ОТКРЫТЬ ЗА 500 ₽
+        </button>
+
+    </div>
+
+    <div class="result" id="result">
+
+        <div class="car">🚘</div>
+
+        <div class="car-name" id="carName"></div>
+
+        <div class="rarity" id="rarity"></div>
+
+        <div class="car-price" id="carPrice"></div>
+
+    </div>
+
+    <div class="garage">
+
+        <div class="section-title">
+            🚗 Мой гараж
+        </div>
+
+        <div id="garageList">
+            <div class="empty">
+                Пока в гараже пусто.<br>
+                Открой свой первый кейс!
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="nav">
+
+    <div class="nav-item">
+        <span>🏠</span>
+        Главная
+    </div>
+
+    <div class="nav-item">
+        <span>🚗</span>
+        Гараж
+    </div>
+
+    <div class="nav-item">
+        <span>🏪</span>
+        Рынок
+    </div>
+
+    <div class="nav-item">
+        <span>👤</span>
+        Профиль
+    </div>
+
+</div>
+
+<script>
+
+let money = 10000;
+let garage = [];
+
+const cars = [
+    {
+        name: "LADA Vesta",
+        rarity: "Обычная",
+        price: 2500
+    },
+    {
+        name: "BMW E39",
+        rarity: "Необычная",
+        price: 15000
+    },
+    {
+        name: "Mercedes W211",
+        rarity: "Редкая",
+        price: 35000
+    },
+    {
+        name: "BMW M5 E60",
+        rarity: "Эпическая",
+        price: 180000
+    },
+    {
+        name: "Porsche 911",
+        rarity: "Легендарная",
+        price: 750000
+    },
+    {
+        name: "Lamborghini Aventador",
+        rarity: "Мифическая",
+        price: 2500000
+    }
+];
+
+function formatMoney(number) {
+    return number.toLocaleString("ru-RU") + " ₽";
+}
+
+function openCase() {
+
+    if (money < 500) {
+        alert("Недостаточно денег!");
+        return;
+    }
+
+    money -= 500;
+
+    document.getElementById("money").textContent =
+        formatMoney(money);
+
+    const random =
+        cars[Math.floor(Math.random() * cars.length)];
+
+    garage.push(random);
+
+    document.getElementById("carName").textContent =
+        random.name;
+
+    document.getElementById("rarity").textContent =
+        "💎 " + random.rarity;
+
+    document.getElementById("carPrice").textContent =
+        "Стоимость: " + formatMoney(random.price);
+
+    document.getElementById("result").style.display = "block";
+
+    updateGarage();
+}
+
+function updateGarage() {
+
+    const list = document.getElementById("garageList");
+
+    list.innerHTML = "";
+
+    garage.forEach(function(car) {
+
+        const item = document.createElement("div");
+
+        item.className = "garage-card";
+
+        item.innerHTML = `
+            <div class="garage-icon">🚘</div>
+
+            <div class="garage-info">
+
+                <div class="garage-name">
+                    ${car.name}
+                </div>
+
+                <div class="garage-price">
+                    ${car.rarity} · ${formatMoney(car.price)}
+                </div>
+
+            </div>
+        `;
+
+        list.appendChild(item);
+
+    });
+}
+
+</script>
+
+</body>
+</html>
